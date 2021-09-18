@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/dist/css/main.css">
+    <title>Budget App</title>
+</head>
+
+<body>
+    <header>
+        <div class="container-header">
+            <h1>Simple Budget App</h1>
+        </div>
+    </header>
+
+    <section class="app-container">
+        <div class="transactions" id="section-a">
+            <div class="section-header">
+                <h3>TRANSACTIONS</h3>
+            </div>
+            <div class="section-subheader">
+                <div id="income-panel">
+                    <p>Income</p>
+                </div>
+                <div id="expense-panel">
+                    <p>Expense</p>
+                </div>
+            </div>
+            <div class="section-transactions">
+                <div class="recent-data">
+                    <ul>
+                        <li>data #1</li>
+                        <li>data #2</li>
+                        <li>data #3</li>
+                        <li>data #4</li>
+                        <li>data #4</li>
+                    </ul>
+                </div>
+                <button type="reset">CLEAR</button>
+            </div>
+        </div>
+
+        <section class="transactions" id="section-b">
+            <div class="section-header">
+                <h3>INPUTS</h3>
+            </div>
+            <div class="section-subheader">
+                <div class="expense-tab">
+                    <div class="expense">
+                        <p>Rent/Mortgage</p>
+                    </div>
+                    <div class="expense">
+                        <p>Car</p>
+                    </div>
+                    <div class="expense">
+                        <p>Food</p>
+                    </div>
+                    <div class="expense">
+                        <p>Other</p>
+                    </div>
+                </div>
+
+                <div class="income-tab">
+                    <div class="income">
+                        <p>Salary</p>
+                    </div>
+                    <div class="income">
+                        <p>Gifts</p>
+                    </div>
+                    <div class="income">
+                        <p>Investments</p>
+                    </div>
+                    <div class="income">
+                        <p>Other</p>
+                    </div>
+                </div>
+            </div>
+            <form>
+                <input type="text"> <button type="submit">SUBMIT</button>
+            </form>
+
+            <section class="calculator">
+                <table class="tg">
+                    <tbody>
+                        <tr>
+                            <td class="tg-0lax" id="1">1</td>
+                            <td class="tg-0lax" id="2">2</td>
+                            <td class="tg-0lax" id="3">3</td>
+                        </tr>
+                        <tr>
+                            <td class="tg-0lax" id="4">4</td>
+                            <td class="tg-0lax" id="5">5</td>
+                            <td class="tg-0lax" id="6">6</td>
+                        </tr>
+                        <tr>
+                            <td class="tg-0lax" id="7">7</td>
+                            <td class="tg-0lax" id="8">8</td>
+                            <td class="tg-0lax" id="9">9</td>
+                        </tr>
+                        <tr>
+                            <td class="tg-0lax" id="clear-table">Clear</td>
+                            <td class="tg-0lax" id="0">0</td>
+                            <td class="tg-0lax" id="tbd">TBD</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+        </section>
+    </section>
+
+    <script src="/dist/app.js"></script>
+</body>
+
+</html>

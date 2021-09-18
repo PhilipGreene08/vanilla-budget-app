@@ -1,0 +1,20 @@
+@import 'variables';
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container-header {
+    display: grid;
+    justify-content: center;
+    background-color: $dark;
+    color: $light;
+}
+
+.app-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+

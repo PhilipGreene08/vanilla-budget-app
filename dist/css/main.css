@@ -1,0 +1,14 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; }
+
+.container-header {
+  display: grid;
+  justify-content: center;
+  background-color: black;
+  color: white; }
+
+.app-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; }
