@@ -6,6 +6,15 @@
     box-sizing: border-box;
 }
 
+ul {
+    list-style: none;
+}
+
+.tg-0lax {
+    border: $basicBorder;
+    
+}
+
 .container-header {
     display: grid;
     justify-content: center;
@@ -16,5 +25,17 @@
 .app-container {
     display: grid; //test
     grid-template-columns: 1fr 1fr; //test
+    justify-items: center;
+
+    .transactions-card {
+        border: $basicBorder;
+        height: 100%;
+        width: 50%;
+
+        .section-header {
+            display: flex;
+            justify-content: center;
+        }
+    }
 }
 

@@ -3,6 +3,12 @@
   padding: 0;
   box-sizing: border-box; }
 
+ul {
+  list-style: none; }
+
+.tg-0lax {
+  border: 1px black solid; }
+
 .container-header {
   display: grid;
   justify-content: center;
@@ -11,4 +17,12 @@
 
 .app-container {
   display: grid;
-  grid-template-columns: 1fr 1fr; }
+  grid-template-columns: 1fr 1fr;
+  justify-items: center; }
+  .app-container .transactions-card {
+    border: 1px black solid;
+    height: 100%;
+    width: 50%; }
+    .app-container .transactions-card .section-header {
+      display: flex;
+      justify-content: center; }
