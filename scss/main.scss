@@ -36,6 +36,23 @@ ul {
             display: flex;
             justify-content: center;
         }
+
+        //start of section-b
+        .expense-tab {
+            display: flex;
+            justify-content: space-evenly;
+
+                .selected {
+                border: $basicBorder;
+            }
+
+                .unselected {
+                border: none
+            }
+            
+        }
     }
+
+    
 }
 

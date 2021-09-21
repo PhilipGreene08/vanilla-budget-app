@@ -2,10 +2,23 @@ const numberPad = document.querySelector(`.tg`)
 const inputForm = document.querySelector(`.input-Form`)
 let inputValue = document.querySelector(`.inputValue`)
 const submitBtn = document.querySelector(`.submit`)
+const expenses = document.querySelectorAll(`.expense-tab`)
 
 numberPad.addEventListener(`click`, enterNumber)
+submitBtn.addEventListener(`click`, newExpenseEntry)
+expenses.forEach(expense => {
+    expense.addEventListener(`click`, selectExpense)
+})
 
 let numberArray = []
+testarr = []
+
+function createNewData(amount, type) {
+    const obj = {}
+    obj.amount = amount
+    obj.type = type
+    return obj
+}
 
 function enterNumber() {
     const clicked = event.target.textContent
@@ -13,11 +26,23 @@ function enterNumber() {
     inputValue.value = numberArray.join('')
 }
 
-submitBtn.addEventListener(`click`, testData)
-
-function testData() {
+function newExpenseEntry() {
     event.preventDefault()
-    console.log(`yes`);
+    const clicked = event.target
+    expenses.forEach((node) => {
+        console.log(node.children);
+        if (node.children.classList.hasAttribute(`selected`)) {
+            console.log(node);
+        }
+    })
+    // })); //keep this line
+
+    // createNewData(inputValue.value) 
+    testarr.push(createNewData(inputValue.value))
 }
 
-console.log(inputValue);
+function selectExpense() {
+    const clicked = event.target
+    clicked.parentElement.classList.toggle(`selected`)
+}
+

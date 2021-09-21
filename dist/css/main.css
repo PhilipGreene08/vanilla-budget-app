@@ -26,3 +26,10 @@ ul {
     .app-container .transactions-card .section-header {
       display: flex;
       justify-content: center; }
+    .app-container .transactions-card .expense-tab {
+      display: flex;
+      justify-content: space-evenly; }
+      .app-container .transactions-card .expense-tab .selected {
+        border: 1px black solid; }
+      .app-container .transactions-card .expense-tab .unselected {
+        border: none; }
