@@ -30,15 +30,16 @@ function newExpenseEntry() {
     event.preventDefault()
     const clicked = event.target
     expenses.forEach((node) => {
-        console.log(node.children);
-        if (node.children.classList.hasAttribute(`selected`)) {
-            console.log(node);
-        }
-    })
-    // })); //keep this line
+        console.log(node);
+        let testing = [...node.children] //used to convert htmlCollection to an array 
+        //console.log(testing.contains(`selected`));
 
-    // createNewData(inputValue.value) 
-    testarr.push(createNewData(inputValue.value))
+
+        //keep this line
+
+        // createNewData(inputValue.value) 
+        testarr.push(createNewData(inputValue.value))
+    })
 }
 
 function selectExpense() {
