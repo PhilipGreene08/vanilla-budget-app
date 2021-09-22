@@ -29,7 +29,7 @@ ul {
     .app-container .transactions-card .expense-tab {
       display: flex;
       justify-content: space-evenly; }
-      .app-container .transactions-card .expense-tab .selected {
+      .app-container .transactions-card .expense-tab .expense .selected {
         border: 1px black solid; }
-      .app-container .transactions-card .expense-tab .unselected {
+      .app-container .transactions-card .expense-tab .expense .unselected {
         border: none; }

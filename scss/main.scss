@@ -42,6 +42,8 @@ ul {
             display: flex;
             justify-content: space-evenly;
 
+            .expense {
+
                 .selected {
                 border: $basicBorder;
             }
@@ -49,10 +51,10 @@ ul {
                 .unselected {
                 border: none
             }
-            
+        }
+                           
         }
     }
-
     
 }
 

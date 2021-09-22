@@ -3,12 +3,15 @@ const inputForm = document.querySelector(`.input-Form`)
 let inputValue = document.querySelector(`.inputValue`)
 const submitBtn = document.querySelector(`.submit`)
 const expenses = document.querySelectorAll(`.expense-tab`)
+const selectedExpense = document.querySelectorAll(`.selected`)
+
 
 numberPad.addEventListener(`click`, enterNumber)
 submitBtn.addEventListener(`click`, newExpenseEntry)
 expenses.forEach(expense => {
     expense.addEventListener(`click`, selectExpense)
 })
+
 
 let numberArray = []
 testarr = []
@@ -26,24 +29,35 @@ function enterNumber() {
     inputValue.value = numberArray.join('')
 }
 
+var testExpenses = []
+
+function TestExpense(type, amount) {
+    this.type = type
+    this.amount = amount
+}
+
 function newExpenseEntry() {
     event.preventDefault()
     const clicked = event.target
-    expenses.forEach((node) => {
-        console.log(node);
-        let testing = [...node.children] //used to convert htmlCollection to an array 
-        //console.log(testing.contains(`selected`));
-
-
-        //keep this line
-
-        // createNewData(inputValue.value) 
-        testarr.push(createNewData(inputValue.value))
-    })
+    var newTestExpense = new TestExpense(selectedExpense, inputValue.value)
+    testExpenses.push(newTestExpense)
+    console.log(testExpenses);
+    testarr.push(createNewData(inputValue.value))
 }
-
+let expenseType = []
 function selectExpense() {
+    expenseType
     const clicked = event.target
-    clicked.parentElement.classList.toggle(`selected`)
+    console.log(clicked);
+    if (clicked.classList == `selected`) {
+        //expenseType.filter(word =>)
+        clicked.classList.remove(`selected`)
+        console.log(expenseType);
+    } else {
+        console.log(expenseType);
+        clicked.classList.add(`selected`)
+    }
+    expenseType.push(clicked.textContent)
+
 }
 
