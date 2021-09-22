@@ -44,20 +44,20 @@ function newExpenseEntry() {
     console.log(testExpenses);
     testarr.push(createNewData(inputValue.value))
 }
+
 let expenseType = []
 function selectExpense() {
     expenseType
     const clicked = event.target
     console.log(clicked);
     if (clicked.classList == `selected`) {
-        //expenseType.filter(word =>)
+        expenseType.filter(word => console.log(word))
         clicked.classList.remove(`selected`)
-        console.log(expenseType);
     } else {
-        console.log(expenseType);
         clicked.classList.add(`selected`)
+        expenseType.push(clicked.textContent)
     }
-    expenseType.push(clicked.textContent)
+    console.log(expenseType);
 
 }
 
