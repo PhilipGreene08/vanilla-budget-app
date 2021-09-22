@@ -49,9 +49,10 @@ let expenseType = []
 function selectExpense() {
     expenseType
     const clicked = event.target
-    console.log(clicked);
+    console.log(clicked.textContent);
     if (clicked.classList == `selected`) {
-        expenseType.filter(word => console.log(word))
+        let expenseIndex = expenseType.indexOf(clicked.textContent)
+        expenseType.splice(expenseIndex, 1)
         clicked.classList.remove(`selected`)
     } else {
         clicked.classList.add(`selected`)
