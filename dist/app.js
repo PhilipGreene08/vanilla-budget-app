@@ -13,8 +13,8 @@ expenses.forEach(expense => {
 })
 
 
-let numberArray = []
-testarr = []
+let numberArray = [] //used to store numbers from input
+let expenseType = [] //used to select the type of expense in selectExpense()
 
 function createNewData(amount, type) {
     const obj = {}
@@ -29,9 +29,9 @@ function enterNumber() {
     inputValue.value = numberArray.join('')
 }
 
-var testExpenses = []
+let expenseList = []
 
-function TestExpense(type, amount) {
+function newExpense(type, amount) {
     this.type = type
     this.amount = amount
 }
@@ -39,26 +39,28 @@ function TestExpense(type, amount) {
 function newExpenseEntry() {
     event.preventDefault()
     const clicked = event.target
-    var newTestExpense = new TestExpense(selectedExpense, inputValue.value)
-    testExpenses.push(newTestExpense)
-    console.log(testExpenses);
-    testarr.push(createNewData(inputValue.value))
+    var newTestExpense = new newExpense(expenseType[0], inputValue.value)
+    expenseList.push(newTestExpense)
+    console.log(expenseList);
 }
 
-let expenseType = []
-function selectExpense() {
-    expenseType
-    const clicked = event.target
-    console.log(clicked.textContent);
-    if (clicked.classList == `selected`) {
-        let expenseIndex = expenseType.indexOf(clicked.textContent)
-        expenseType.splice(expenseIndex, 1)
-        clicked.classList.remove(`selected`)
-    } else {
-        clicked.classList.add(`selected`)
-        expenseType.push(clicked.textContent)
-    }
-    console.log(expenseType);
 
+function selectExpense() {
+    const clicked = event.target
+
+    if (expenseType.length >= 1) {
+        console.log(`error`);
+    } else {
+        console.log(clicked.textContent);
+        if (clicked.classList == `selected`) {
+            let expenseIndex = expenseType.indexOf(clicked.textContent)
+            expenseType.splice(expenseIndex, 1)
+            clicked.classList.remove(`selected`)
+        } else {
+            clicked.classList.add(`selected`)
+            expenseType.push(clicked.textContent)
+        }
+        console.log(expenseType);
+    }
 }
 
