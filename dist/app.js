@@ -42,14 +42,29 @@ function newExpenseEntry() {
     var newTestExpense = new newExpense(expenseType[0], inputValue.value)
     expenseList.push(newTestExpense)
     console.log(expenseList);
+    clearData()
 }
-
 
 function selectExpense() {
     const clicked = event.target
 
     if (expenseType.length >= 1) {
-        console.log(`error`);
+        let expenseIndex = expenseType.indexOf(clicked.textContent)
+        if (clicked.classList == `selected`) {
+            expenseType.splice(expenseIndex, 1)
+            clicked.classList.remove(`selected`)
+        } else if (clicked.classList !== `selected`) {
+            let nodeList = [...clicked.parentElement.parentElement.children]
+            nodeList.forEach(node => {
+                node.children[0].classList.remove(`selected`)
+            })
+            clicked.classList.add(`selected`)
+            expenseType.pop()
+            expenseType.push(clicked.textContent)
+        } else {
+            console.log(`yes`);
+        }
+
     } else {
         console.log(clicked.textContent);
         if (clicked.classList == `selected`) {
@@ -64,3 +79,7 @@ function selectExpense() {
     }
 }
 
+function clearData() {
+    inputValue.value = ` `
+    //console.log(selectedExpense);
+}
