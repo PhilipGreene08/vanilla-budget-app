@@ -75,11 +75,17 @@ function selectExpense() {
             clicked.classList.add(`selected`)
             expenseType.push(clicked.textContent)
         }
-        console.log(expenseType);
     }
 }
 
 function clearData() {
-    inputValue.value = ` `
-    //console.log(selectedExpense);
+    numberArray = []
+    inputValue.value = ``
+
+    let expenseNodes = [...expenses[0].children]
+    expenseNodes.forEach(el => {
+        el.childNodes[1].classList.remove(`selected`)
+    })
+
+    console.log();
 }
