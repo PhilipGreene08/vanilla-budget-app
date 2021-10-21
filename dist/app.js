@@ -5,23 +5,22 @@ const submitBtn = document.querySelector(`.submit`)
 const expenses = document.querySelectorAll(`.expense-tab`)
 const selectedExpense = document.querySelectorAll(`.selected`)
 
-
 numberPad.addEventListener(`click`, enterNumber)
 submitBtn.addEventListener(`click`, newExpenseEntry)
 expenses.forEach(expense => {
     expense.addEventListener(`click`, selectExpense)
 })
 
-
 let numberArray = [] //used to store numbers from input
 let expenseType = [] //used to select the type of expense in selectExpense()
+let expenseList = []
 
-function createNewData(amount, type) {
-    const obj = {}
-    obj.amount = amount
-    obj.type = type
-    return obj
-}
+// function createNewData(amount, type) {
+//     const obj = {}
+//     obj.amount = amount
+//     obj.type = type
+//     return obj
+// } //do i need this code? Was it test code?
 
 function enterNumber() {
     const clicked = event.target.textContent
@@ -29,18 +28,25 @@ function enterNumber() {
     inputValue.value = numberArray.join('')
 }
 
-let expenseList = []
+// function NewExpense(type, amount) {
+//     this.type = type
+//     this.amount = amount
+// } //do i need this? 
 
-function newExpense(type, amount) {
-    this.type = type
-    this.amount = amount
+class NewExpense {
+
+    constructor(type, amount) {
+        this.type = type;
+        this.amount = amount
+    }
+
 }
 
 function newExpenseEntry() {
     event.preventDefault()
     const clicked = event.target
-    var newTestExpense = new newExpense(expenseType[0], inputValue.value)
-    expenseList.push(newTestExpense)
+    var newExpenseToAdd = new NewExpense(expenseType[0], inputValue.value)
+    expenseList.push(newExpenseToAdd)
     console.log(expenseList);
     clearData()
 }
@@ -86,6 +92,4 @@ function clearData() {
     expenseNodes.forEach(el => {
         el.childNodes[1].classList.remove(`selected`)
     })
-
-    console.log();
 }
