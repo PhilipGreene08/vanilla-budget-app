@@ -33,3 +33,10 @@ ul {
         border: 1px black solid; }
       .app-container .transactions-card .expense-tab .expense .unselected {
         border: none; }
+    .app-container .transactions-card .income-tab {
+      display: flex;
+      justify-content: space-evenly; }
+      .app-container .transactions-card .income-tab .income .selected {
+        border: 1px black solid; }
+      .app-container .transactions-card .income-tab .income .unselected {
+        border: none; }

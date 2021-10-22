@@ -46,13 +46,28 @@ ul {
 
                 .selected {
                 border: $basicBorder;
-            }
+                }
 
                 .unselected {
                 border: none
+                }
             }
         }
-                           
+
+        .income-tab {
+            display: flex;
+            justify-content: space-evenly;
+
+            .income {
+
+                .selected {
+                    border: $basicBorder;
+                }
+
+                .unselected {
+                    border: none;
+                }
+            }
         }
     }
     

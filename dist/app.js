@@ -5,6 +5,14 @@ const submitBtn = document.querySelector(`.submit`)
 const expenses = document.querySelectorAll(`.expense-tab`)
 const selectedExpense = document.querySelectorAll(`.selected`)
 
+const incomes = document.querySelectorAll(`.income-tab`)
+
+console.log(incomes);
+
+incomes.forEach(income => {
+    income.addEventListener(`click`, selectIncome)
+});
+
 numberPad.addEventListener(`click`, enterNumber)
 submitBtn.addEventListener(`click`, newExpenseEntry)
 expenses.forEach(expense => {
@@ -14,6 +22,10 @@ expenses.forEach(expense => {
 let numberArray = [] //used to store numbers from input
 let expenseType = [] //used to select the type of expense in selectExpense()
 let expenseList = []
+
+function selectIncome() {
+
+}
 
 // function createNewData(amount, type) {
 //     const obj = {}
@@ -44,11 +56,12 @@ class NewExpense {
 
 function newExpenseEntry() {
     event.preventDefault()
-    const clicked = event.target
-    var newExpenseToAdd = new NewExpense(expenseType[0], inputValue.value)
-    expenseList.push(newExpenseToAdd)
-    console.log(expenseList);
-    clearData()
+    if (expenseType.length > 0) {
+        console.log(expenseType);
+        const newExpenseToAdd = new NewExpense(expenseType[0], inputValue.value)
+        expenseList.push(newExpenseToAdd)
+    } else if ()
+        clearData()
 }
 
 function selectExpense() {
