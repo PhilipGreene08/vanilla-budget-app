@@ -6,7 +6,6 @@ const expenses = document.querySelectorAll(`.expense-tab`)
 const selectedExpense = document.querySelectorAll(`.selected`)
 
 const incomes = document.querySelectorAll(`.income-tab`)
-
 console.log(incomes);
 
 incomes.forEach(income => {
@@ -23,8 +22,22 @@ let numberArray = [] //used to store numbers from input
 let expenseType = [] //used to select the type of expense in selectExpense()
 let expenseList = []
 
-function selectIncome() {
+let incomeType = []
 
+function selectIncome() {
+    const clicked = event.target
+    clicked.classList.toggle(`selected`)
+    if (clicked.className === `selected` && incomes.length <= 1) {
+        console.log(`active`);
+        [...incomes[0].children].forEach(el => {
+            console.log(el);
+        })
+        console.log([...incomes[0].children]);
+    } else {
+        console.log(`not active`);
+        console.log(incomes);
+    }
+    //console.log(incomes);
 }
 
 // function createNewData(amount, type) {
@@ -34,16 +47,17 @@ function selectIncome() {
 //     return obj
 // } //do i need this code? Was it test code?
 
+// function NewExpense(type, amount) {
+//     this.type = type
+//     this.amount = amount
+// } //do i need this? 
 function enterNumber() {
     const clicked = event.target.textContent
     numberArray.push(clicked)
     inputValue.value = numberArray.join('')
 }
 
-// function NewExpense(type, amount) {
-//     this.type = type
-//     this.amount = amount
-// } //do i need this? 
+
 
 class NewExpense {
 
@@ -60,8 +74,12 @@ function newExpenseEntry() {
         console.log(expenseType);
         const newExpenseToAdd = new NewExpense(expenseType[0], inputValue.value)
         expenseList.push(newExpenseToAdd)
-    } else if ()
-        clearData()
+    } else if (incomeType.length > 0) {
+
+    } else {
+        console.log(`error type not selected`);
+    }
+    clearData()
 }
 
 function selectExpense() {
