@@ -3,61 +3,50 @@ const inputForm = document.querySelector(`.input-Form`)
 let inputValue = document.querySelector(`.inputValue`)
 const submitBtn = document.querySelector(`.submit`)
 const expenses = document.querySelectorAll(`.expense-tab`)
-const selectedExpense = document.querySelectorAll(`.selected`)
-
+const selected = document.querySelectorAll(`.selected`)
 const incomes = document.querySelectorAll(`.income-tab`)
-console.log(incomes);
 
-incomes.forEach(income => {
-    income.addEventListener(`click`, selectIncome)
-});
+const incomess = document.querySelectorAll(`.income`)
 
 numberPad.addEventListener(`click`, enterNumber)
 submitBtn.addEventListener(`click`, newExpenseEntry)
 expenses.forEach(expense => {
     expense.addEventListener(`click`, selectExpense)
 })
+incomes.forEach(income => {
+    income.addEventListener(`click`, selectIncome)
+});
 
 let numberArray = [] //used to store numbers from input
 let expenseType = [] //used to select the type of expense in selectExpense()
 let expenseList = []
-
 let incomeType = []
 
 function selectIncome() {
     const clicked = event.target
-    clicked.classList.toggle(`selected`)
-    if (clicked.className === `selected` && incomes.length <= 1) {
-        console.log(`active`);
-        [...incomes[0].children].forEach(el => {
-            console.log(el);
+    let incomeIndex = incomeType.indexOf(clicked.target) //not needed but is it more efficiant?
+    if (incomeType.length >= 1) {
+        incomess.forEach(income => {
+            let arrayOfIncome = [...income.children]
+            arrayOfIncome[0].classList.remove(`selected`)
         })
-        console.log([...incomes[0].children]);
+        clicked.parentElement.children[0].classList.add(`selected`)
+        incomeType.shift()
+        incomeType.push(clicked.textContent)
     } else {
-        console.log(`not active`);
-        console.log(incomes);
+        clicked.classList.add(`selected`)
+        incomeType.push(clicked.textContent)
     }
-    //console.log(incomes);
+
+    console.log(incomeType);
+
 }
 
-// function createNewData(amount, type) {
-//     const obj = {}
-//     obj.amount = amount
-//     obj.type = type
-//     return obj
-// } //do i need this code? Was it test code?
-
-// function NewExpense(type, amount) {
-//     this.type = type
-//     this.amount = amount
-// } //do i need this? 
 function enterNumber() {
     const clicked = event.target.textContent
     numberArray.push(clicked)
     inputValue.value = numberArray.join('')
 }
-
-
 
 class NewExpense {
 
@@ -65,17 +54,16 @@ class NewExpense {
         this.type = type;
         this.amount = amount
     }
-
 }
 
 function newExpenseEntry() {
     event.preventDefault()
     if (expenseType.length > 0) {
-        console.log(expenseType);
+        //console.log(expenseType);
         const newExpenseToAdd = new NewExpense(expenseType[0], inputValue.value)
         expenseList.push(newExpenseToAdd)
     } else if (incomeType.length > 0) {
-
+        console.log(`do something`);
     } else {
         console.log(`error type not selected`);
     }
@@ -118,7 +106,6 @@ function selectExpense() {
 function clearData() {
     numberArray = []
     inputValue.value = ``
-
     let expenseNodes = [...expenses[0].children]
     expenseNodes.forEach(el => {
         el.childNodes[1].classList.remove(`selected`)
