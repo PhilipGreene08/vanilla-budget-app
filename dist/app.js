@@ -9,7 +9,7 @@ const incomes = document.querySelectorAll(`.income-tab`)
 const incomess = document.querySelectorAll(`.income`)
 
 numberPad.addEventListener(`click`, enterNumber)
-submitBtn.addEventListener(`click`, newExpenseEntry)
+submitBtn.addEventListener(`click`, newEntry)
 expenses.forEach(expense => {
     expense.addEventListener(`click`, selectExpense)
 })
@@ -21,10 +21,10 @@ let numberArray = [] //used to store numbers from input
 let expenseType = [] //used to select the type of expense in selectExpense()
 let expenseList = []
 let incomeType = []
+let incomeList = []
 
-function selectIncome() {
+function selectIncome() { //adjust the incomess variable to make sense
     const clicked = event.target
-    let incomeIndex = incomeType.indexOf(clicked.target) //not needed but is it more efficiant?
     if (incomeType.length >= 1) {
         incomess.forEach(income => {
             let arrayOfIncome = [...income.children]
@@ -56,16 +56,25 @@ class NewExpense {
     }
 }
 
-function newExpenseEntry() {
+class NewIncome {
+    constructor(type, amount) {
+        this.type = type;
+        this.amount = amount
+    }
+}
+
+function newEntry() {
     event.preventDefault()
     if (expenseType.length > 0) {
         //console.log(expenseType);
         const newExpenseToAdd = new NewExpense(expenseType[0], inputValue.value)
         expenseList.push(newExpenseToAdd)
     } else if (incomeType.length > 0) {
-        console.log(`do something`);
+        const newIncomeToAdd = new NewIncome(incomeType[0], inputValue.value)
+        incomeList.push(newIncomeToAdd)
+        console.log(incomeList, incomeType);
     } else {
-        console.log(`error type not selected`);
+        error(`error type not selected`)
     }
     clearData()
 }
@@ -110,4 +119,10 @@ function clearData() {
     expenseNodes.forEach(el => {
         el.childNodes[1].classList.remove(`selected`)
     })
+    let incomeNodes = [...incomes] //need to be able to clear income node
+    incomeNodes[0].children.forEach(el => { //this code is not working
+        console.log(el);
+    })
+
+    console.log(incomeNodes[0].children);
 }
