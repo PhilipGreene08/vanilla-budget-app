@@ -170,5 +170,14 @@ function clearExpense() {
 }
 
 function clearIncome() {
+    numberArray = []
+    inputValue.value = ``
+    expenseType = []
+    let incomesNodeList = incomes[0].children
+    let incomesToSearch = Array.from(incomesNodeList)
+    incomesToSearch.forEach(inc => {
+        let nodeList = inc.children
+        nodeList[0].classList.remove(`selected`)
+    })
     console.log(`clearIncome`);
 }
