@@ -6,8 +6,6 @@ const expenses = document.querySelectorAll(`.expense-tab`)
 const selected = document.querySelectorAll(`.selected`)
 const incomes = document.querySelectorAll(`.income-tab`)
 
-const incomess = document.querySelectorAll(`.income`)
-
 let numberArray = []
 let expenseType = []
 let expenseList = []
@@ -22,27 +20,6 @@ expenses.forEach(expense => {
 incomes.forEach(income => {
     income.addEventListener(`click`, selectIncome)
 });
-
-
-
-function selectIncome() { //adjust the incomess variable to make sense
-    const clicked = event.target
-    if (incomeType.length >= 1) {
-        incomess.forEach(income => {
-            let arrayOfIncome = [...income.children]
-            arrayOfIncome[0].classList.remove(`selected`)
-        })
-        clicked.parentElement.children[0].classList.add(`selected`)
-        incomeType.shift()
-        incomeType.push(clicked.textContent)
-    } else {
-        clicked.classList.add(`selected`)
-        incomeType.push(clicked.textContent)
-    }
-
-    //console.log(incomeType);
-
-}
 
 function enterNumber() {
     const clicked = event.target.textContent
@@ -66,21 +43,24 @@ class NewIncome {
 
 function newEntry() {
     event.preventDefault()
-    if (expenseType.length > 0) {
-
+    if (expenseType.length > 0 && incomeType.length == 0) {
         const newExpenseToAdd = new NewExpense(expenseType[0], inputValue.value)
         expenseList.push(newExpenseToAdd)
-        console.log(expenseList, expenseType);
+        console.log(expenseList);
+        saveExpense(expenseList)
         clearExpense()
-    } else if (incomeType.length > 0) {
+    } else if (incomeType.length > 0 && expenseType.length == 0) {
         const newIncomeToAdd = new NewIncome(incomeType[0], inputValue.value)
         incomeList.push(newIncomeToAdd)
-        console.log(incomeList, incomeType);
+        saveIncome(incomeList)
+        clearIncome()
+    } else if (expenseType.length > 0 && incomeType.length > 0) {
+        console.log(`select one expense or one income`)
+        clearExpense()
         clearIncome()
     } else {
-        error(`error type not selected`)
+        console.log(`error type not selected`)
     }
-
 }
 
 function selectExpense() {
@@ -90,9 +70,7 @@ function selectExpense() {
         if (clicked.classList == `selected`) {
             expenseType.splice(expenseIndex, 1) //starting at expenseIndex, remove one from expenseType array
             clicked.classList.remove(`selected`)
-            console.log(expenseType);
         } else {
-            console.log(clicked.parentElement);
             let nodeList = [...clicked.parentElement.parentElement.children]
             nodeList.forEach(node => {
                 node.children[0].classList.remove(`selected`)
@@ -100,62 +78,34 @@ function selectExpense() {
             clicked.classList.add(`selected`)
             expenseType.shift()
             expenseType.push(clicked.textContent)
-            console.log(expenseType);
         }
     } else {
         clicked.classList.add(`selected`)
         expenseType.push(clicked.textContent)
-        console.log(expenseType);
     }
 }
 
-// function selectExpense() {
-//     const clicked = event.target
-//     if (expenseType.length >= 1) {
-//         let expenseIndex = expenseType.indexOf(clicked.textContent)
-//         if (clicked.classList == `selected`) {
-//             expenseType.splice(expenseIndex, 1)
-//             clicked.classList.remove(`selected`)
-//         } else if (clicked.classList !== `selected`) {
-//             let nodeList = [...clicked.parentElement.parentElement.children]
-//             nodeList.forEach(node => {
-//                 node.children[0].classList.remove(`selected`)
-//             })
-//             clicked.classList.add(`selected`)
-//             expenseType.pop()
-//             expenseType.push(clicked.textContent)
-//         } else {
-//             console.log(`yes`);
-//         }
-
-//     } else {
-//         console.log(clicked.textContent);
-//         if (clicked.classList == `selected`) {
-//             let expenseIndex = expenseType.indexOf(clicked.textContent)
-//             expenseType.splice(expenseIndex, 1)
-//             clicked.classList.remove(`selected`)
-//         } else {
-//             clicked.classList.add(`selected`)
-//             expenseType.push(clicked.textContent)
-//         }
-//     }
-// }
-
-//clear DOM of input data
-// function clearData() {
-//     numberArray = []
-//     inputValue.value = ``
-//     let expenseNodes = [...expenses[0].children]
-//     //console.log(expenseNodes);
-//     expenseNodes.forEach(el => {
-//         el.childNodes[1].classList.remove(`selected`)
-//     })
-//     let incomeNodes = [...incomes[0].children] //need to be able to clear income node
-//     incomeNodes.forEach(el => {
-//         el.childNodes[1].classList.remove(`selected`)
-//     })
-
-// }
+function selectIncome() {
+    const clicked = event.target
+    const incomeIndex = incomeType.indexOf(clicked.textContent)
+    if (incomeType.length > 0) {
+        if (clicked.classList == `selected`) {
+            incomeType.splice(incomeIndex, 1)
+            clicked.classList.remove(`selected`)
+        } else {
+            let nodeList = [...clicked.parentElement.parentElement.children]
+            nodeList.forEach(node => {
+                node.children[0].classList.remove(`selected`)
+            })
+            clicked.classList.add(`selected`)
+            incomeType.shift()
+            incomeType.push(clicked.textContent)
+        }
+    } else {
+        clicked.classList.add(`selected`)
+        incomeType.push(clicked.textContent)
+    }
+}
 
 function clearExpense() {
     numberArray = []
@@ -179,5 +129,12 @@ function clearIncome() {
         let nodeList = inc.children
         nodeList[0].classList.remove(`selected`)
     })
-    console.log(`clearIncome`);
+}
+
+function saveExpense(expenseList) {
+    localStorage.setItem(`expense`, JSON.stringify(expenseList))
+}
+
+function saveIncome(incomeList) {
+    localStorage.setItem(`income`, JSON.stringify(incomeList))
 }
