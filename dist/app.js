@@ -1,10 +1,11 @@
-const numberPad = document.querySelector(`.tg`)
+const numberPad = document.querySelectorAll(`.tg-0lax`)
 const inputForm = document.querySelector(`.input-Form`)
 let inputValue = document.querySelector(`.inputValue`)
 const submitBtn = document.querySelector(`.submit`)
 const expenses = document.querySelectorAll(`.expense-tab`)
 const selected = document.querySelectorAll(`.selected`)
 const incomes = document.querySelectorAll(`.income-tab`)
+const clearButton = document.querySelector(`.clearBtn`)
 
 let numberArray = []
 let expenseType = []
@@ -12,7 +13,9 @@ let expenseList = []
 let incomeType = []
 let incomeList = []
 
-numberPad.addEventListener(`click`, enterNumber)
+numberPad.forEach(button => {
+    button.addEventListener(`click`, enterNumber)
+})
 submitBtn.addEventListener(`click`, newEntry)
 expenses.forEach(expense => {
     expense.addEventListener(`click`, selectExpense)
@@ -20,11 +23,17 @@ expenses.forEach(expense => {
 incomes.forEach(income => {
     income.addEventListener(`click`, selectIncome)
 });
+clearButton.addEventListener(`click`, clearData)
+
+function clearData() {
+    clearExpense()
+    clearIncome()
+}
 
 function enterNumber() {
     const clicked = event.target.textContent
     numberArray.push(clicked)
-    inputValue.value = numberArray.join('')
+    inputValue.value = numberArray.join(``)
 }
 
 class NewExpense {
@@ -43,23 +52,24 @@ class NewIncome {
 
 function newEntry() {
     event.preventDefault()
-    if (expenseType.length > 0 && incomeType.length == 0) {
+    if (expenseType.length > 0) {
         const newExpenseToAdd = new NewExpense(expenseType[0], inputValue.value)
         expenseList.push(newExpenseToAdd)
-        console.log(expenseList);
         saveExpense(expenseList)
-        clearExpense()
-    } else if (incomeType.length > 0 && expenseType.length == 0) {
+        clearData()
+    } else if (incomeType.length > 0) {
         const newIncomeToAdd = new NewIncome(incomeType[0], inputValue.value)
         incomeList.push(newIncomeToAdd)
         saveIncome(incomeList)
-        clearIncome()
+        clearData()
     } else if (expenseType.length > 0 && incomeType.length > 0) {
         console.log(`select one expense or one income`)
+        console.log(expenseType, incomeType);
         clearExpense()
         clearIncome()
     } else {
         console.log(`error type not selected`)
+        clearData()
     }
 }
 
@@ -137,4 +147,16 @@ function saveExpense(expenseList) {
 
 function saveIncome(incomeList) {
     localStorage.setItem(`income`, JSON.stringify(incomeList))
+}
+
+function renderExpenseIncome() {
+    let incomeFromLocalStorage = localStorage.getItem(`income`)
+    let expenseFromLocalStorage = localStorage.getItem(`expense`)
+
+    console.log(incomeFromLocalStorage);
+    console.log(expenseFromLocalStorage);
+}
+
+function clearAllLocalStorage() {
+
 }
