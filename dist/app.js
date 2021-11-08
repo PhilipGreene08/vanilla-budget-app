@@ -6,12 +6,15 @@ const expenses = document.querySelectorAll(`.expense-tab`)
 const selected = document.querySelectorAll(`.selected`)
 const incomes = document.querySelectorAll(`.income-tab`)
 const clearButton = document.querySelector(`.clearBtn`)
+const clearItemsFromTransactionBtn = document.querySelector(`.clearItemsBtn`)
 
 let numberArray = []
 let expenseType = []
 let expenseList = []
 let incomeType = []
 let incomeList = []
+let totalDollars = []
+let allTransactions = []
 
 numberPad.forEach(button => {
     button.addEventListener(`click`, enterNumber)
@@ -24,6 +27,7 @@ incomes.forEach(income => {
     income.addEventListener(`click`, selectIncome)
 });
 clearButton.addEventListener(`click`, clearData)
+clearItemsFromTransactionBtn.addEventListener(`click`, clearItemsFromDomList)
 
 function clearData() {
     clearExpense()
@@ -55,18 +59,21 @@ function newEntry() {
     if (expenseType.length > 0) {
         const newExpenseToAdd = new NewExpense(expenseType[0], inputValue.value)
         expenseList.push(newExpenseToAdd)
+        allTransactions.push(newExpenseToAdd)
+        saveAllTransactions()
         saveExpense(expenseList)
         clearData()
     } else if (incomeType.length > 0) {
         const newIncomeToAdd = new NewIncome(incomeType[0], inputValue.value)
         incomeList.push(newIncomeToAdd)
+        allTransactions.push(newIncomeToAdd)
+        saveAllTransactions()
         saveIncome(incomeList)
         clearData()
     } else if (expenseType.length > 0 && incomeType.length > 0) {
         console.log(`select one expense or one income`)
         console.log(expenseType, incomeType);
-        clearExpense()
-        clearIncome()
+        clearData()
     } else {
         console.log(`error type not selected`)
         clearData()
@@ -149,14 +156,34 @@ function saveIncome(incomeList) {
     localStorage.setItem(`income`, JSON.stringify(incomeList))
 }
 
-function renderExpenseIncome() {
-    let incomeFromLocalStorage = localStorage.getItem(`income`)
-    let expenseFromLocalStorage = localStorage.getItem(`expense`)
-
-    console.log(incomeFromLocalStorage);
-    console.log(expenseFromLocalStorage);
+function saveAllTransactions() {
+    localStorage.setItem(`allTransactions`, JSON.stringify(allTransactions))
 }
 
+function getLastFiveTransactions() {
+    let allTransactions = JSON.parse(localStorage.getItem(`allTransactions`))
+    console.log(allTransactions);
+    let lastFiveTest = allTransactions.slice(Math.max(allTransactions.length - 5, 0))
+    console.log(lastFiveTest);
+}
+getLastFiveTransactions()
+// function renderData() {
+//     let incomeFromLocalStorage = localStorage.getItem(`income`)
+//     let expenseFromLocalStorage = localStorage.getItem(`expense`)
+
+//     console.log(incomeFromLocalStorage);
+//     console.log(expenseFromLocalStorage);
+// }
+// renderData()
 function clearAllLocalStorage() {
+    localStorage.clear()
 
 }
+
+function clearItemsFromDomList() {
+    clearAllLocalStorage()
+}
+
+// function transactionsToDisplay() {
+//     console.log(allTransactions);
+// }
