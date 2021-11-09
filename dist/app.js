@@ -7,6 +7,7 @@ const selected = document.querySelectorAll(`.selected`)
 const incomes = document.querySelectorAll(`.income-tab`)
 const clearButton = document.querySelector(`.clearBtn`)
 const clearItemsFromTransactionBtn = document.querySelector(`.clearItemsBtn`)
+const unorderedList = document.querySelector(`.unordered-list`)
 
 let numberArray = []
 let expenseType = []
@@ -162,22 +163,26 @@ function saveAllTransactions() {
 
 function getLastFiveTransactions() {
     let allTransactions = JSON.parse(localStorage.getItem(`allTransactions`))
-    console.log(allTransactions);
-    let lastFiveTest = allTransactions.slice(Math.max(allTransactions.length - 5, 0))
-    console.log(lastFiveTest);
+    if (allTransactions.length >= 5) {
+        let lastFiveTransactions = allTransactions.slice(Math.max(allTransactions.length - 5, 0))
+        console.log(lastFiveTransactions);
+        //render transactions
+    } else if (allTransactions.length < 5) {
+        allTransactions.forEach(el => {
+            const newEl = document.createElement('li')
+            const newContent = document.createTextNode(el.type)
+            newEl.appendChild(newContent)
+            unorderedList.appendChild(newEl)
+        })
+    } else {
+        console.log(`no transactions`);
+    }
 }
-getLastFiveTransactions()
-// function renderData() {
-//     let incomeFromLocalStorage = localStorage.getItem(`income`)
-//     let expenseFromLocalStorage = localStorage.getItem(`expense`)
 
-//     console.log(incomeFromLocalStorage);
-//     console.log(expenseFromLocalStorage);
-// }
-// renderData()
+getLastFiveTransactions()
+
 function clearAllLocalStorage() {
     localStorage.clear()
-
 }
 
 function clearItemsFromDomList() {
