@@ -161,13 +161,15 @@ function saveAllTransactions() {
     localStorage.setItem(`allTransactions`, JSON.stringify(allTransactions))
 }
 
-function getLastFiveTransactions() {
+function onLoad() {
     let allTransactions = JSON.parse(localStorage.getItem(`allTransactions`))
-    if (allTransactions.length >= 5) {
+    if (allTransactions == null) {
+        console.log(`no transactions`);
+    } else if (allTransactions.length >= 5) {
         let lastFiveTransactions = allTransactions.slice(Math.max(allTransactions.length - 5, 0))
         console.log(lastFiveTransactions);
         //render transactions
-    } else if (allTransactions.length < 5) {
+    } else if (allTransactions.length < 5 && allTransactions.length > 0) {
         allTransactions.forEach(el => {
             const newEl = document.createElement('li')
             const newContent = document.createTextNode(el.type)
@@ -175,11 +177,9 @@ function getLastFiveTransactions() {
             unorderedList.appendChild(newEl)
         })
     } else {
-        console.log(`no transactions`);
+        console.log(`something else is wrong`);
     }
 }
-
-getLastFiveTransactions()
 
 function clearAllLocalStorage() {
     localStorage.clear()
@@ -187,8 +187,25 @@ function clearAllLocalStorage() {
 
 function clearItemsFromDomList() {
     clearAllLocalStorage()
+    unorderedList.textContent = ``
 }
 
-// function transactionsToDisplay() {
-//     console.log(allTransactions);
-// }
+function getTotal() {
+    let plusTotal = JSON.parse(localStorage.getItem(`income`))
+    plusTotal.forEach(income => {
+        let incomeNumber = income.amount
+        totalDollars.push(+incomeNumber)//turns string into number
+    })
+    let minusTotal = JSON.parse(localStorage.getItem(`expense`))
+    minusTotal.forEach(expense => {
+        let negativeNumber = Math.abs(expense.amount) * -1
+        totalDollars.push(negativeNumber)
+    })
+    //const reducer = (a, b) => a + b
+    const finalTotal = totalDollars.reduce(function (acc, curr) {
+        return acc + curr
+    })
+    console.log(finalTotal);
+}
+getTotal()
+//onload()
