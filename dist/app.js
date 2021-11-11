@@ -8,6 +8,8 @@ const incomes = document.querySelectorAll(`.income-tab`)
 const clearButton = document.querySelector(`.clearBtn`)
 const clearItemsFromTransactionBtn = document.querySelector(`.clearItemsBtn`)
 const unorderedList = document.querySelector(`.unordered-list`)
+const totalValue = document.getElementById(`total-value`)
+const listItems = document.querySelectorAll(`.list-item`)
 
 let numberArray = []
 let expenseType = []
@@ -52,32 +54,6 @@ class NewIncome {
     constructor(type, amount) {
         this.type = type;
         this.amount = amount
-    }
-}
-
-function newEntry() {
-    event.preventDefault()
-    if (expenseType.length > 0) {
-        const newExpenseToAdd = new NewExpense(expenseType[0], inputValue.value)
-        expenseList.push(newExpenseToAdd)
-        allTransactions.push(newExpenseToAdd)
-        saveAllTransactions()
-        saveExpense(expenseList)
-        clearData()
-    } else if (incomeType.length > 0) {
-        const newIncomeToAdd = new NewIncome(incomeType[0], inputValue.value)
-        incomeList.push(newIncomeToAdd)
-        allTransactions.push(newIncomeToAdd)
-        saveAllTransactions()
-        saveIncome(incomeList)
-        clearData()
-    } else if (expenseType.length > 0 && incomeType.length > 0) {
-        console.log(`select one expense or one income`)
-        console.log(expenseType, incomeType);
-        clearData()
-    } else {
-        console.log(`error type not selected`)
-        clearData()
     }
 }
 
@@ -161,24 +137,73 @@ function saveAllTransactions() {
     localStorage.setItem(`allTransactions`, JSON.stringify(allTransactions))
 }
 
+
+
+function newEntry() {
+    event.preventDefault()
+    onLoad()
+    if (expenseType.length > 0) {
+        const newExpenseToAdd = new NewExpense(expenseType[0], inputValue.value)
+        expenseList.push(newExpenseToAdd)
+        allTransactions.push(newExpenseToAdd)
+        saveAllTransactions()
+        saveExpense(expenseList)
+        clearData()
+    } else if (incomeType.length > 0) {
+        const newIncomeToAdd = new NewIncome(incomeType[0], inputValue.value)
+        incomeList.push(newIncomeToAdd)
+        allTransactions.push(newIncomeToAdd)
+        saveAllTransactions()
+        saveIncome(incomeList)
+        clearData()
+    } else if (expenseType.length > 0 && incomeType.length > 0) {
+        console.log(`select one expense or one income`)
+        console.log(expenseType, incomeType);
+        clearData()
+    } else {
+        console.log(`error type not selected`)
+        clearData()
+    }
+    onLoad()
+}
+
+
+
+
+
+
+
+
+
 function onLoad() {
+    listItemRemove()
     let allTransactions = JSON.parse(localStorage.getItem(`allTransactions`))
     if (allTransactions == null) {
         console.log(`no transactions`);
     } else if (allTransactions.length >= 5) {
         let lastFiveTransactions = allTransactions.slice(Math.max(allTransactions.length - 5, 0))
         console.log(lastFiveTransactions);
+        lastFiveTransactions.forEach(transaction => {
+            const newEl = document.createElement(`li`)
+            const newContent = document.createTextNode(el.type)
+            newEl.appendChild(newContent)
+            unorderedList.appendChild(newEl)
+        }) //why is transaction not being used??
+        getTotal()
         //render transactions
     } else if (allTransactions.length < 5 && allTransactions.length > 0) {
         allTransactions.forEach(el => {
             const newEl = document.createElement('li')
+            newEl.classList.add(`list-item`)
             const newContent = document.createTextNode(el.type)
             newEl.appendChild(newContent)
             unorderedList.appendChild(newEl)
         })
+        getTotal()
     } else {
         console.log(`something else is wrong`);
     }
+
 }
 
 function clearAllLocalStorage() {
@@ -188,24 +213,44 @@ function clearAllLocalStorage() {
 function clearItemsFromDomList() {
     clearAllLocalStorage()
     unorderedList.textContent = ``
+    totalValue.textContent = `$0`
 }
 
 function getTotal() {
+
     let plusTotal = JSON.parse(localStorage.getItem(`income`))
-    plusTotal.forEach(income => {
-        let incomeNumber = income.amount
-        totalDollars.push(+incomeNumber)//turns string into number
-    })
+    if (plusTotal == null) {
+        localStorage.setItem(`income`, ``)
+    } else {
+        plusTotal.forEach(income => {
+            let incomeNumber = income.amount
+            totalDollars.push(+incomeNumber)//turns string into number
+        })
+    }
+
     let minusTotal = JSON.parse(localStorage.getItem(`expense`))
-    minusTotal.forEach(expense => {
-        let negativeNumber = Math.abs(expense.amount) * -1
-        totalDollars.push(negativeNumber)
-    })
+    if (minusTotal == null) {
+        localStorage.setItem(`expense`, ``)
+    } else {
+        minusTotal.forEach(expense => {
+            let negativeNumber = Math.abs(expense.amount) * -1
+            totalDollars.push(negativeNumber)
+        })
+    }
+
     //const reducer = (a, b) => a + b
     const finalTotal = totalDollars.reduce(function (acc, curr) {
         return acc + curr
     })
+    totalValue.textContent = ``
+    totalValue.textContent = `$${finalTotal}`
     console.log(finalTotal);
 }
-getTotal()
-//onload()
+
+function listItemRemove() {
+    listItems.forEach(el => {
+        el.remove()
+    })
+}
+
+window.onload = onLoad()
