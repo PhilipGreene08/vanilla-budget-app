@@ -43,6 +43,7 @@ function clearAllLocalStorage() {
 
 function clearItemsFromDomList() {
     //clearAllLocalStorage()
+    localStorage.clear()
     unorderedList.textContent = ``
     totalValue.textContent = `$0`
 }
@@ -116,8 +117,8 @@ function clearExpense() {
     expenseType = []
     let expensesNodeList = expenses[0].children
     let expensesToSearch = Array.from(expensesNodeList)
-    expensesToSearch.forEach(ex => {
-        let nodeList = ex.children
+    expensesToSearch.forEach(expense => {
+        let nodeList = expense.children
         nodeList[0].classList.remove(`selected`)
     })
 }
@@ -128,8 +129,8 @@ function clearIncome() {
     incomeType = []
     let incomesNodeList = incomes[0].children
     let incomesToSearch = Array.from(incomesNodeList)
-    incomesToSearch.forEach(inc => {
-        let nodeList = inc.children
+    incomesToSearch.forEach(income => {
+        let nodeList = income.children
         nodeList[0].classList.remove(`selected`)
     })
 }
@@ -149,32 +150,67 @@ function saveAllTransactions() {
 function newEntry() {
     event.preventDefault()
     clearItemsFromDomList()
+
     if (expenseType.length > 0 && incomeType.length == 0) {
-        const newExpenseToAdd = new NewExpense(expenseType[0], inputValue.value)
+        const newExpenseToAdd = new NewExpense(expenseType[0], Math.abs(inputValue.value) * -1)
         expenseList.push(newExpenseToAdd)
         allTransactions.push(newExpenseToAdd)
         saveAllTransactions()
         saveExpense(expenseList)
+        saveIncome(incomeList)
+        getTotal()
         clearExpense()
     } else if (incomeType.length > 0 && expenseType.length == 0) {
-        const newIncomeToAdd = new NewIncome(incomeType[0], inputValue.value)
+        const newIncomeToAdd = new NewIncome(incomeType[0], Math.abs(inputValue.value) * 1)
         incomeList.push(newIncomeToAdd)
         allTransactions.push(newIncomeToAdd)
         saveAllTransactions()
         saveIncome(incomeList)
+        saveExpense(expenseList)
+        getTotal()
         clearIncome()
-        console.log(`added income to all trans`);
     } else if (expenseType.length > 0 && incomeType.length > 0) {
-        console.log(`select one expense or one income`)
         console.log(expenseType, incomeType);
-        clearData()
+        //clearData()
     } else {
-        console.log(`error type not selected`)
-        clearData()
+        //clearData()
+    }
+
+}
+
+function getTotal() {
+
+    let allTransactionsFromLocalStorage = JSON.parse(localStorage.getItem(`allTransactions`))
+    if (allTransactionsFromLocalStorage === null) {
+        localStorage.setItem(`allTransactions`, ``)
+        totalValue.textContent = `$0`
+    } else {
+        // console.log(
+        //     JSON.parse(localStorage.getItem(`expense`)),
+        //     JSON.parse(localStorage.getItem(`income`))
+        // );
+
+        totalDollars = []
+        allTransactionsFromLocalStorage.forEach(num => {
+            const transactionDollarAmount = num.amount
+            totalDollars.push(transactionDollarAmount)
+        })
+        let sum = totalDollars.reduce((prevValue, currentValue) => {
+            return prevValue + currentValue
+        })
+        totalValue.textContent = `$${sum}`
     }
 }
 
+getTotal()
 
+
+// function onDomLoad () {
+//     if (localStorage.getItem(`allTransactions`) === null) {
+//         localStorage.setItem()
+//     }
+
+// }
 // function newEntry() {
 //     event.preventDefault()
 //     clearItemsFromDomList()
