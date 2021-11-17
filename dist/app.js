@@ -175,6 +175,7 @@ function newEntry() {
     } else {
         //clearData()
     }
+    renderTransactions()
 
 }
 
@@ -185,11 +186,6 @@ function getTotal() {
         localStorage.setItem(`allTransactions`, ``)
         totalValue.textContent = `$0`
     } else {
-        // console.log(
-        //     JSON.parse(localStorage.getItem(`expense`)),
-        //     JSON.parse(localStorage.getItem(`income`))
-        // );
-
         totalDollars = []
         allTransactionsFromLocalStorage.forEach(num => {
             const transactionDollarAmount = num.amount
@@ -202,130 +198,21 @@ function getTotal() {
     }
 }
 
-getTotal()
+function renderTransactions() {
+    let allTransactionsFromLocalStorage = JSON.parse(localStorage.getItem(`allTransactions`))
+    if (allTransactionsFromLocalStorage.length >= 0) {
+        let arrayToRender = allTransactionsFromLocalStorage.slice(-5)
+        arrayToRender.forEach(el => {
+            const newEl = document.createElement(`li`)
+            const liContent = document.createTextNode(`${el.type}: $${el.amount}`)
+            newEl.appendChild(liContent)
+            unorderedList.appendChild(newEl)
+        })
+    } else {
+        console.log(`no transactions`);
+    }
+}
 
-
-// function onDomLoad () {
-//     if (localStorage.getItem(`allTransactions`) === null) {
-//         localStorage.setItem()
-//     }
-
-// }
-// function newEntry() {
-//     event.preventDefault()
-//     clearItemsFromDomList()
-//     if (expenseType.length > 0) {
-//         const newExpenseToAdd = new NewExpense(expenseType[0], inputValue.value)
-//         expenseList.push(newExpenseToAdd)
-//         allTransactions.push(newExpenseToAdd)
-//         saveAllTransactions()
-//         saveExpense(expenseList)
-//         clearData()
-//     } else if (incomeType.length > 0) {
-//         const newIncomeToAdd = new NewIncome(incomeType[0], inputValue.value)
-//         incomeList.push(newIncomeToAdd)
-//         allTransactions.push(newIncomeToAdd)
-//         saveAllTransactions()
-//         saveIncome(incomeList)
-//         clearData()
-//     } else if (expenseType.length > 0 && incomeType.length > 0) {
-//         console.log(`select one expense or one income`)
-//         console.log(expenseType, incomeType);
-//         clearData()
-//     } else {
-//         console.log(`error type not selected`)
-//         clearData()
-//     }
-//     onLoad()
-// }
-
-
-
-
-
-
-
-
-
-// function onLoad() {
-
-//     let allTransactionsFromLocalStorage = JSON.parse(localStorage.getItem(`allTransactions`))
-//     if (allTransactionsFromLocalStorage == null) { //if transactions dont exist
-//         console.log(`no transactions`);
-//     }
-
-//     else if (allTransactionsFromLocalStorage.length < 5 && allTransactionsFromLocalStorage.length >= 0) { //if trans are less than 5
-//         clearItemsFromDomList()    //or greater than 0... clear trans page
-//         allTransactions.forEach(el => { //create new element for each one
-//             const newEl = document.createElement('li')
-//             newEl.classList.add(`list-item`)
-//             const newContent = document.createTextNode(el.type)
-//             newEl.appendChild(newContent)
-//             unorderedList.appendChild(newEl)
-//         })
-//         getTotal()
-//     }
-
-//     else if (allTransactionsFromLocalStorage.length >= 5) { //if trans are more than 5
-//         clearItemsFromDomList() //clear trans page 
-//         let lastFiveTransactions = allTransactionsFromLocalStorage.slice(Math.max(allTransactionsFromLocalStorage.length - 5, 0)) //get last 5 units
-//         lastFiveTransactions.forEach(transaction => { //create a new element for each
-//             const newEl = document.createElement(`li`)
-//             const newContent = document.createTextNode(transaction.type)
-//             newEl.appendChild(newContent)
-//             unorderedList.appendChild(newEl)
-//         })
-//         getTotal()
-//     } else {
-//         console.log(`something else is wrong`);
-//     }
-
-// }
-
-
-
-// function getTotal() {
-
-//     let plusTotal = JSON.parse(localStorage.getItem(`income`))
-//     if (plusTotal == null) {
-//         localStorage.setItem(`income`, ``)
-//     } else {
-//         plusTotal.forEach(income => {
-//             let incomeNumber = income.amount
-//             totalDollars.push(+incomeNumber)//turns string into number
-//         })
-//     }
-
-//     let minusTotal = JSON.parse(localStorage.getItem(`expense`))
-//     if (minusTotal == null) {
-//         localStorage.setItem(`expense`, ``)
-//     } else {
-//         minusTotal.forEach(expense => {
-//             let negativeNumber = Math.abs(expense.amount) * -1
-//             totalDollars.push(negativeNumber)
-//         })
-//     }
-
-//     //const reducer = (a, b) => a + b
-//     const finalTotal = totalDollars.reduce(function (acc, curr) {
-//         return acc + curr
-//     })
-//     totalValue.textContent = ``
-//     totalValue.textContent = `$${finalTotal}`
-//     console.log(finalTotal);
-// }
-
-// function listItemRemove() {
-//     console.log(`remove list item`);
-//     listItems.forEach(el => {
-//         el.remove()
-//     })
-// }
-
-// function checkLocalStorageForData() {
-//     if (localStorage.getItem(`income`) == null) {
-
-//     }
-// }
-
-// window.onload = onLoad()
+window.onload = (event) => {
+    getTotal()
+};
