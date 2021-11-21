@@ -1,5 +1,9 @@
 @import 'variables';
 
+html {
+    height: 100vh;
+}
+
 *{
     margin: 0;
     padding: 0;
@@ -10,25 +14,31 @@ ul {
     list-style: none;
 }
 
-.tg-0lax {
-    border: $basicBorder;
-    
-}
 
-.container-header {
+
+body {
+    background: rgb(117,13,10);
+    background: linear-gradient(180deg, rgba(117,13,10,1) 0%, rgba(255,255,255,1) 100%, rgba(117,13,10,1) 100%);
+
+    .container-header {
     display: grid;
+    align-items: center;
     justify-content: center;
     background-color: $dark;
     color: $light;
+    height: 65px;
+
 }
 
 .app-container {
     display: grid; //test
     grid-template-columns: 1fr 1fr; //test
     justify-items: center;
-
+    margin-top: 10px;
+    
     .transactions-card {
         border: $basicBorder;
+        border-radius: 5px;
         height: 100%;
         width: 50%;
 
@@ -69,7 +79,44 @@ ul {
                 }
             }
         }
+
+        form {
+            display: flex;
+            justify-content: center;
+            margin: 5px;
+        }
+
+        .calculator {
+            display: flex;
+            justify-content: center;
+            align-content: center;
+
+            .calculator-container {
+                
+                tbody {
+                    
+                    tr {
+
+                        color: whitesmoke;
+                        display: flex;
+                        justify-content: space-evenly;
+
+                        td {
+                            width: 50px;
+                            height: 50px;
+                            border: $basicBorder;
+                            border-radius: 20px;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            margin: 5px;
+                        }
+                    }
+                }
+            }
+        }
     }
     
 }
 
+}

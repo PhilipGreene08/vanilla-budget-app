@@ -1,3 +1,6 @@
+html {
+  height: 100vh; }
+
 * {
   margin: 0;
   padding: 0;
@@ -6,37 +9,61 @@
 ul {
   list-style: none; }
 
-.tg-0lax {
-  border: 1px black solid; }
-
-.container-header {
-  display: grid;
-  justify-content: center;
-  background-color: black;
-  color: white; }
-
-.app-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  justify-items: center; }
-  .app-container .transactions-card {
-    border: 1px black solid;
-    height: 100%;
-    width: 50%; }
-    .app-container .transactions-card .section-header {
-      display: flex;
-      justify-content: center; }
-    .app-container .transactions-card .expense-tab {
-      display: flex;
-      justify-content: space-evenly; }
-      .app-container .transactions-card .expense-tab .expense .selected {
-        border: 1px black solid; }
-      .app-container .transactions-card .expense-tab .expense .unselected {
-        border: none; }
-    .app-container .transactions-card .income-tab {
-      display: flex;
-      justify-content: space-evenly; }
-      .app-container .transactions-card .income-tab .income .selected {
-        border: 1px black solid; }
-      .app-container .transactions-card .income-tab .income .unselected {
-        border: none; }
+body {
+  background: #750d0a;
+  background: linear-gradient(180deg, #750d0a 0%, white 100%, #750d0a 100%); }
+  body .container-header {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    color: white;
+    height: 65px; }
+  body .app-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    margin-top: 10px; }
+    body .app-container .transactions-card {
+      border: 1px black solid;
+      border-radius: 5px;
+      height: 100%;
+      width: 50%; }
+      body .app-container .transactions-card .section-header {
+        display: flex;
+        justify-content: center; }
+      body .app-container .transactions-card .expense-tab {
+        display: flex;
+        justify-content: space-evenly; }
+        body .app-container .transactions-card .expense-tab .expense .selected {
+          border: 1px black solid; }
+        body .app-container .transactions-card .expense-tab .expense .unselected {
+          border: none; }
+      body .app-container .transactions-card .income-tab {
+        display: flex;
+        justify-content: space-evenly; }
+        body .app-container .transactions-card .income-tab .income .selected {
+          border: 1px black solid; }
+        body .app-container .transactions-card .income-tab .income .unselected {
+          border: none; }
+      body .app-container .transactions-card form {
+        display: flex;
+        justify-content: center;
+        margin: 5px; }
+      body .app-container .transactions-card .calculator {
+        display: flex;
+        justify-content: center;
+        align-content: center; }
+        body .app-container .transactions-card .calculator .calculator-container tbody tr {
+          color: whitesmoke;
+          display: flex;
+          justify-content: space-evenly; }
+          body .app-container .transactions-card .calculator .calculator-container tbody tr td {
+            width: 50px;
+            height: 50px;
+            border: 1px black solid;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 5px; }
