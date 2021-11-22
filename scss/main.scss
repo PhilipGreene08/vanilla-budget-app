@@ -14,8 +14,6 @@ ul {
     list-style: none;
 }
 
-
-
 body {
     background: rgb(117,13,10);
     background: linear-gradient(180deg, rgba(117,13,10,1) 0%, rgba(255,255,255,1) 100%, rgba(117,13,10,1) 100%);
@@ -41,11 +39,37 @@ body {
         border-radius: 5px;
         height: 100%;
         width: 50%;
-
+        
+        
         .section-header {
             display: flex;
             justify-content: center;
         }
+
+        //section a
+        #total-panel {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .recent-data {
+
+            .unordered-list {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        
+            li {
+                margin: 20px;
+            }
+        
+        }
+        }
+
+        
 
         //start of section-b
         .expense-tab {
@@ -95,16 +119,57 @@ body {
                 
                 tbody {
                     
-                    tr {
+                    .row1,.row2,.row3 {
 
                         color: whitesmoke;
                         display: flex;
                         justify-content: space-evenly;
 
-                        td {
+                        .tg-0lax {
                             width: 50px;
                             height: 50px;
                             border: $basicBorder;
+                            border-radius: 20px;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            margin: 5px;
+                        }
+
+                        .clearBtn {
+                            width: 50px;
+                            height: 50px;
+                            border: $basicBorder;
+                            border-radius: 20px;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            margin: 5px;
+                        }
+                    }
+
+                    .row4 {
+
+                        color: whitesmoke;
+                        display: grid;
+                        justify-content: space-evenly;
+                        grid-template-columns: 2fr 1fr;
+
+                        .tg-0lax {
+                            width: 50px;
+                            height: 50px;
+                            border: $basicBorder;
+                            border-radius: 20px;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            margin: 5px;
+                        }
+
+                        .clearBtn {
+                            width: 110px;
+                            height: 50px;
+                            border: 1px black solid;
                             border-radius: 20px;
                             display: flex;
                             justify-content: center;
@@ -116,7 +181,6 @@ body {
             }
         }
     }
-    
 }
 
 }

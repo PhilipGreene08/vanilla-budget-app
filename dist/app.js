@@ -9,7 +9,7 @@ const clearButton = document.querySelector(`.clearBtn`)
 const clearItemsFromTransactionBtn = document.querySelector(`.clearItemsBtn`) //transaction dom
 const unorderedList = document.querySelector(`.unordered-list`)
 const totalValue = document.getElementById(`total-value`)
-const listItems = document.querySelectorAll(`.list-item`)
+const listItems = document.querySelectorAll(`.list-items`)
 
 let numberArray = []
 let expenseType = []
@@ -30,20 +30,17 @@ incomes.forEach(income => {
     income.addEventListener(`click`, selectIncome)
 });
 clearButton.addEventListener(`click`, clearData)
-clearItemsFromTransactionBtn.addEventListener(`click`, clearItemsFromDomList)
+clearItemsFromTransactionBtn.addEventListener(`click`, clearApp)
 
 function clearData() {
     clearExpense()
     clearIncome()
 }
 
-function clearAllLocalStorage() {
-    localStorage.clear()
-}
-
-function clearItemsFromDomList() {
-    //clearAllLocalStorage()
-    localStorage.clear()
+function clearApp() {
+    localStorage.removeItem(`allTransactions`)
+    localStorage.removeItem(`expense`)
+    localStorage.removeItem(`income`)
     unorderedList.textContent = ``
     totalValue.textContent = `$0`
 }
@@ -135,6 +132,12 @@ function clearIncome() {
     })
 }
 
+function saveDataToLocalStorage(incomeList, expenseList, allTransactions) {
+    localStorage.setItem(`expense`, JSON.stringify(expenseList))
+    localStorage.setItem(`income`, JSON.stringify(incomeList))
+    localStorage.setItem(`allTransactions`, JSON.stringify(allTransactions))
+}
+
 function saveExpense(expenseList) {
     localStorage.setItem(`expense`, JSON.stringify(expenseList))
 }
@@ -149,34 +152,38 @@ function saveAllTransactions() {
 
 function newEntry() {
     event.preventDefault()
-    clearItemsFromDomList()
+    //clearApp()
+
+    //remove latest Data From Dom
+    unorderedList.textContent = ``
 
     if (expenseType.length > 0 && incomeType.length == 0) {
         const newExpenseToAdd = new NewExpense(expenseType[0], Math.abs(inputValue.value) * -1)
         expenseList.push(newExpenseToAdd)
         allTransactions.push(newExpenseToAdd)
-        saveAllTransactions()
-        saveExpense(expenseList)
-        saveIncome(incomeList)
-        getTotal()
-        clearExpense()
+        saveDataToLocalStorage(incomeList, expenseList, allTransactions)
+        // saveAllTransactions()
+        // saveIncome(incomeList)
+        // saveExpense(expenseList)
     } else if (incomeType.length > 0 && expenseType.length == 0) {
         const newIncomeToAdd = new NewIncome(incomeType[0], Math.abs(inputValue.value) * 1)
         incomeList.push(newIncomeToAdd)
         allTransactions.push(newIncomeToAdd)
-        saveAllTransactions()
-        saveIncome(incomeList)
-        saveExpense(expenseList)
-        getTotal()
-        clearIncome()
+        saveDataToLocalStorage(incomeList, expenseList, allTransactions)
+        // saveAllTransactions()
+        // saveIncome(incomeList)
+        // saveExpense(expenseList)
     } else if (expenseType.length > 0 && incomeType.length > 0) {
-        console.log(expenseType, incomeType);
+        console.log(`only select one income or expense`);
         //clearData()
     } else {
         //clearData()
     }
-    renderTransactions()
 
+    getTotal()
+    clearIncome()
+    clearExpense()
+    renderTransactions()
 }
 
 function getTotal() {
@@ -188,6 +195,7 @@ function getTotal() {
     } else {
         totalDollars = []
         allTransactionsFromLocalStorage.forEach(num => {
+            console.log(num);
             const transactionDollarAmount = num.amount
             totalDollars.push(transactionDollarAmount)
         })
@@ -204,15 +212,23 @@ function renderTransactions() {
         let arrayToRender = allTransactionsFromLocalStorage.slice(-5)
         arrayToRender.forEach(el => {
             const newEl = document.createElement(`li`)
+            newEl.classList.add(`list-items`)
             const liContent = document.createTextNode(`${el.type}: $${el.amount}`)
             newEl.appendChild(liContent)
             unorderedList.appendChild(newEl)
         })
+    } else if (allTransactionsFromLocalStorage == null) {
+        localStorage.setItem(`allTransactions`, ``)
     } else {
         console.log(`no transactions`);
     }
 }
 
 window.onload = (event) => {
+    //event.preventDefault()
+    expenseList.push(JSON.parse(localStorage.getItem(`expense`)))
+    incomeList.push(JSON.parse(localStorage.getItem(`income`)))
+    allTransactions.push(JSON.parse(localStorage.getItem(`allTransactions`)))
     getTotal()
+    renderTransactions()
 };
