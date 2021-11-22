@@ -138,17 +138,17 @@ function saveDataToLocalStorage(incomeList, expenseList, allTransactions) {
     localStorage.setItem(`allTransactions`, JSON.stringify(allTransactions))
 }
 
-function saveExpense(expenseList) {
-    localStorage.setItem(`expense`, JSON.stringify(expenseList))
-}
+// function saveExpense(expenseList) {
+//     localStorage.setItem(`expense`, JSON.stringify(expenseList))
+// }
 
-function saveIncome(incomeList) {
-    localStorage.setItem(`income`, JSON.stringify(incomeList))
-}
+// function saveIncome(incomeList) {
+//     localStorage.setItem(`income`, JSON.stringify(incomeList))
+// }
 
-function saveAllTransactions() {
-    localStorage.setItem(`allTransactions`, JSON.stringify(allTransactions))
-}
+// function saveAllTransactions() {
+//     localStorage.setItem(`allTransactions`, JSON.stringify(allTransactions))
+// }
 
 function newEntry() {
     event.preventDefault()
@@ -195,7 +195,6 @@ function getTotal() {
     } else {
         totalDollars = []
         allTransactionsFromLocalStorage.forEach(num => {
-            console.log(num);
             const transactionDollarAmount = num.amount
             totalDollars.push(transactionDollarAmount)
         })
@@ -222,13 +221,30 @@ function renderTransactions() {
     } else {
         console.log(`no transactions`);
     }
+
+    //getTotal()
 }
 
-window.onload = (event) => {
-    //event.preventDefault()
-    expenseList.push(JSON.parse(localStorage.getItem(`expense`)))
-    incomeList.push(JSON.parse(localStorage.getItem(`income`)))
-    allTransactions.push(JSON.parse(localStorage.getItem(`allTransactions`)))
-    getTotal()
+window.onload = function (event) {
+    event.preventDefault()
+    //clear all data from dom
+    unorderedList.textContent = ``
+    //check ls for data
+    let allExistingTransactions = JSON.parse(localStorage.getItem(`allTransactions`))
+    if (allExistingTransactions == null) {
+        localStorage.setItem(`allTransactions`, JSON.stringify([]))
+    }
+    let expense = JSON.parse(localStorage.getItem(`expense`))
+    if (expense == null) {
+        localStorage.setItem(`expense`, JSON.stringify([]))
+    }
+    let income = JSON.parse(localStorage.getItem(`income`))
+    if (income == null) {
+        localStorage.setItem(`income`, JSON.stringify([]))
+    }
+
+    //renderTransactions()
+}
+window.addEventListener('load', function (e) {
     renderTransactions()
-};
+})
