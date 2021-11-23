@@ -34,20 +34,28 @@ body {
     justify-items: center;
     margin-top: 10px;
     
+    #section-a {
+        position: relative;
+        .clearItemsBtn {
+            position: absolute;
+            right: 50%;
+            bottom: 5px;
+            border: $basicBorder;
+        }
+    }
     .transactions-card {
         border: $basicBorder;
         border-radius: 5px;
         height: 100%;
         width: 50%;
-        
-        
+                
         .section-header {
             display: flex;
             justify-content: center;
         }
 
         //section a
-        #total-panel {
+            #total-panel {
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -68,8 +76,6 @@ body {
         
         }
         }
-
-        
 
         //start of section-b
         .expense-tab {
@@ -183,4 +189,10 @@ body {
     }
 }
 
+}
+
+@media (max-width: 992px){
+    *{
+        display: none;
+    }
 }

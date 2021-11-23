@@ -159,7 +159,9 @@ function newEntry() {
 
     if (expenseType.length > 0 && incomeType.length == 0) {
         const newExpenseToAdd = new NewExpense(expenseType[0], Math.abs(inputValue.value) * -1)
+        console.log(newExpenseToAdd);
         expenseList.push(newExpenseToAdd)
+        console.log(expenseList);
         allTransactions.push(newExpenseToAdd)
         saveDataToLocalStorage(incomeList, expenseList, allTransactions)
         // saveAllTransactions()
@@ -179,7 +181,7 @@ function newEntry() {
     } else {
         //clearData()
     }
-
+    console.log(expenseList);
     getTotal()
     clearIncome()
     clearExpense()

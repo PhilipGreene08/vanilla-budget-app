@@ -24,8 +24,15 @@ body {
     grid-template-columns: 1fr 1fr;
     justify-items: center;
     margin-top: 10px; }
+    body .app-container #section-a {
+      position: relative; }
+      body .app-container #section-a .clearItemsBtn {
+        position: absolute;
+        right: 50%;
+        bottom: 5px;
+        border: 2px black solid; }
     body .app-container .transactions-card {
-      border: 1px black solid;
+      border: 2px black solid;
       border-radius: 5px;
       height: 100%;
       width: 50%; }
@@ -48,14 +55,14 @@ body {
         display: flex;
         justify-content: space-evenly; }
         body .app-container .transactions-card .expense-tab .expense .selected {
-          border: 1px black solid; }
+          border: 2px black solid; }
         body .app-container .transactions-card .expense-tab .expense .unselected {
           border: none; }
       body .app-container .transactions-card .income-tab {
         display: flex;
         justify-content: space-evenly; }
         body .app-container .transactions-card .income-tab .income .selected {
-          border: 1px black solid; }
+          border: 2px black solid; }
         body .app-container .transactions-card .income-tab .income .unselected {
           border: none; }
       body .app-container .transactions-card form {
@@ -73,7 +80,7 @@ body {
           body .app-container .transactions-card .calculator .calculator-container tbody .row1 .tg-0lax, body .app-container .transactions-card .calculator .calculator-container tbody .row2 .tg-0lax, body .app-container .transactions-card .calculator .calculator-container tbody .row3 .tg-0lax {
             width: 50px;
             height: 50px;
-            border: 1px black solid;
+            border: 2px black solid;
             border-radius: 20px;
             display: flex;
             justify-content: center;
@@ -82,7 +89,7 @@ body {
           body .app-container .transactions-card .calculator .calculator-container tbody .row1 .clearBtn, body .app-container .transactions-card .calculator .calculator-container tbody .row2 .clearBtn, body .app-container .transactions-card .calculator .calculator-container tbody .row3 .clearBtn {
             width: 50px;
             height: 50px;
-            border: 1px black solid;
+            border: 2px black solid;
             border-radius: 20px;
             display: flex;
             justify-content: center;
@@ -96,7 +103,7 @@ body {
           body .app-container .transactions-card .calculator .calculator-container tbody .row4 .tg-0lax {
             width: 50px;
             height: 50px;
-            border: 1px black solid;
+            border: 2px black solid;
             border-radius: 20px;
             display: flex;
             justify-content: center;
@@ -111,3 +118,7 @@ body {
             justify-content: center;
             align-items: center;
             margin: 5px; }
+
+@media (max-width: 992px) {
+  * {
+    display: none; } }
